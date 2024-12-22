@@ -12,7 +12,7 @@ const ForecastSearch = ({ city, setCity, fetchLatLongHandler }) => {
   return (
     <Container>
       <SearchBy>
-        <ButtonLabel>Search By City</ButtonLabel>
+        <ButtonLabel class="font-style-search">Search By City</ButtonLabel>
       </SearchBy>
 
       <SearchCity
@@ -47,6 +47,8 @@ const SearchBy = styled.View`
 const ButtonLabel = styled.Text`
   color: white;
   margin-right: 10px;
+  font-weight: bolder;
+  font-size: larger;
 `;
 
 const SearchCity = styled.TextInput`

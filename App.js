@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, ImageBackground } from "react-native";
+import { ScrollView, ImageBackground, View } from "react-native";
 import ForecastSearch from "./components/ForecastSearch";
 import CurrentForecast from "./components/CurrentForecast";
 import DailyForecast from "./components/DailyForecast";
 import styled from "styled-components/native";
 import config from "./config";
 import bgImg from "./assets/4.png";
+import LinearGradient from "react-native-web-linear-gradient";
 
 const App = () => {
   const [city, setCity] = useState("Toronto");
@@ -48,28 +49,35 @@ const App = () => {
   return (
     <Container>
       <ImageBackground source={bgImg} style={{ width: "100%", height: "100%" }}>
-        <ForecastSearch
-          city={city}
-          setCity={setCity}
-          fetchLatLongHandler={fetchLatLongHandler}
-        />
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ flex: 1 }}>
-          <CurrentForecast
-            currentWeather={weather}
-            timezone={weather.timezone}
+        <LinearGradient colors={["#0e4196", "#FEB47B"]}>
+          <ForecastSearch
+            city={city}
+            setCity={setCity}
+            fetchLatLongHandler={fetchLatLongHandler}
           />
-          <FutureForecastContainer>
-            {weather.daily ? (
-              weather.daily.map((day, index) => {
-                if (index !== 0) {
-                  return <DailyForecast key={day.dt} day={day} index={index} />;
-                }
-              })
-            ) : (
-              <NoWeather>No Weather to show</NoWeather>
-            )}
-          </FutureForecastContainer>
-        </ScrollView>
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            style={{ flex: 1 }}
+          >
+            <CurrentForecast
+              currentWeather={weather}
+              timezone={weather.timezone}
+            />
+            <FutureForecastContainer>
+              {weather.daily ? (
+                weather.daily.map((day, index) => {
+                  if (index !== 0) {
+                    return (
+                      <DailyForecast key={day.dt} day={day} index={index} />
+                    );
+                  }
+                })
+              ) : (
+                <NoWeather>No Weather to show</NoWeather>
+              )}
+            </FutureForecastContainer>
+          </ScrollView>
+        </LinearGradient>
       </ImageBackground>
     </Container>
   );
